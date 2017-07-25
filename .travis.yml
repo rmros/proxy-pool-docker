@@ -1,0 +1,12 @@
+sudo: required
+language: bash
+services: docker
+
+before_install:
+# Docker:
+- docker build -t proxy_image .
+- sudo sysctl -w vm.max_map_count=262144
+- docker images
+- docker run -it --name proxy_container proxy_image
+- docker logs proxy_container
+- docker ps -a
